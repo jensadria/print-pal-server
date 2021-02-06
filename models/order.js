@@ -6,7 +6,7 @@ const Order = mongoose.model(
   new mongoose.Schema({
     dueDate: {
       type: Date,
-      required: fale,
+      required: false,
     },
     dueTime: {
       type: String,
@@ -34,15 +34,15 @@ const Order = mongoose.model(
 );
 
 function validateOrder(order) {
-  const schema = {
+  const schema = Joi.object({
     dueDate: Joi.date(),
     dueTime: Joi.time(),
     petNumber: Joi.string().min(5).max(20).required(),
     packs: Joi.Number().min(0).max(5000).required(),
     bulks: Joi.Number().min(0).max(5000).required(),
-  };
+  });
 
-  return Joi.validate(order, schema);
+  return schema.validate(order);
 }
 
 exports.Order = Order;
