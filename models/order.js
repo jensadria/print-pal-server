@@ -4,6 +4,10 @@ const mongoose = require('mongoose');
 const Order = mongoose.model(
   'Order',
   new mongoose.Schema({
+    productId: {
+      type: String,
+      required: true,
+    },
     dueDate: {
       type: Date,
       required: false,
@@ -30,16 +34,32 @@ const Order = mongoose.model(
       min: 0,
       max: 5000,
     },
+    cut: {
+      type: Boolean,
+      default: false,
+    },
+    packed: {
+      type: Boolean,
+      default: false,
+    },
+    completed: {
+      type: Boolean,
+      default: false,
+    },
   })
 );
 
 function validateOrder(order) {
   const schema = Joi.object({
-    dueDate: Joi.date(),
-    dueTime: Joi.time(),
+    productId: Joi.string().min(3).max(20).required(),
+    dueDate: Joi.string().min(0).max(50).allow(null),
+    dueTime: Joi.string().min(0).max(50).allow(null),
     petNumber: Joi.string().min(5).max(20).required(),
-    packs: Joi.Number().min(0).max(5000).required(),
-    bulks: Joi.Number().min(0).max(5000).required(),
+    packs: Joi.number().min(0).max(5000).required(),
+    bulks: Joi.number().min(0).max(5000).required(),
+    cut: Joi.boolean(),
+    packed: Joi.boolean(),
+    completed: Joi.boolean(),
   });
 
   return schema.validate(order);

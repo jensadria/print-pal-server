@@ -32,7 +32,6 @@ const Product = mongoose.model(
     flatSheetStock: { type: Number, required: true, min: 1, max: 999999 },
     parentCode: { type: String, required: false },
     millPackSize: { type: Number, required: true, min: 1, max: 5000 },
-    orders: { type: Array, required: false },
   })
 );
 
@@ -53,7 +52,6 @@ function validateProduct(product) {
     flatSheetStock: Joi.number().min(0).max(999999).required(),
     parentCode: Joi.string().min(0).max(50),
     millPackSize: Joi.number().min(1).max(5000).required(),
-    orders: Joi.array().allow(null).allow(''),
   });
 
   return schema.validate(product);

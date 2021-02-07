@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   const products = await Product.find().sort('id');
-  res.send(customers);
+  res.send(products);
 });
 
 router.post('/', async (req, res) => {
@@ -29,7 +29,6 @@ router.post('/', async (req, res) => {
     flatSheetStock: req.body.flatSheetStock,
     parentCode: req.body.parentCode,
     millPackSize: req.body.millPackSize,
-    orders: req.body.orders,
   });
   product = await product.save();
 
