@@ -1,6 +1,7 @@
 const express = require('express');
 const products = require('./routes/products');
 const orders = require('./routes/orders');
+const cors = require('cors');
 
 const app = express();
 const mongoose = require('mongoose');
@@ -13,6 +14,7 @@ mongoose
   .then(() => console.log('Connected to MongoDB...'))
   .catch((err) => console.error('Could not connect to MongoDB...'));
 
+app.use(cors());
 app.use(express.json());
 app.use('/api/products', products);
 app.use('/api/orders', orders);

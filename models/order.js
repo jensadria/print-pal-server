@@ -9,7 +9,7 @@ const Order = mongoose.model(
       required: true,
     },
     dueDate: {
-      type: Date,
+      type: String,
       required: false,
     },
     dueTime: {
