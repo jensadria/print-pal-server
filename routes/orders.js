@@ -8,6 +8,21 @@ router.get('/', async (req, res) => {
   const orders = await Order.find().sort('productId');
   res.send(orders);
 });
+router.get('/active-orders/', async (req, res) => {
+  const activeOrders = await Order.find({ completed: false });
+  res.send(activeOrders);
+});
+router.get('/active-orders/:prodId', async (req, res) => {
+  const activeOrdersByProdId = await Order.find({
+    productId: req.params.prodId,
+  });
+  res.send(activeOrdersByProdId);
+});
+
+router.get('/finished-orders/', async (req, res) => {
+  const finishedOrders = await Order.find({ completed: true });
+  res.send(finishedOrders);
+});
 
 router.post('/', async (req, res) => {
   const { error } = validate(req.body);

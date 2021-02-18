@@ -1,16 +1,23 @@
 const express = require('express');
+const dotenv = require('dotenv');
 const products = require('./routes/products');
 const orders = require('./routes/orders');
 const cors = require('cors');
+
+//Load config
+dotenv.config({ path: './config/config.env' });
 
 const app = express();
 const mongoose = require('mongoose');
 
 mongoose
-  .connect('mongodb://localhost/printpal', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    'mongodb+srv://jensa:Jensa@printpal.ab8ok.mongodb.net/PrintPal?retryWrites=true&w=majority',
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => console.log('Connected to MongoDB...'))
   .catch((err) => console.error('Could not connect to MongoDB...'));
 
