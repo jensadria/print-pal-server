@@ -1,0 +1,3 @@
+[submodule "print-pal"]
+	path = print-pal
+	url = https://github.com/jensadria/print-pal
