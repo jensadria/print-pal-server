@@ -27,10 +27,10 @@ app.use('/api/orders', orders);
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
-  app.use(express.static(__dirname + '/print-pal/'));
+  app.use(express.static(__dirname + '/client/'));
 
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname + '/print-pal/index.html'));
+    res.sendFile(path.resolve(__dirname + '/client/index.html'));
   });
 }
 
