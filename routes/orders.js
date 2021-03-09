@@ -8,6 +8,11 @@ router.get('/', async (req, res) => {
   const orders = await Order.find().sort('productId');
   res.send(orders);
 });
+router.get('/:id', async (req, res) => {
+  const order = await Order.findById(req.params.id);
+  res.send(order);
+});
+
 router.get('/active-orders/', async (req, res) => {
   const activeOrders = await Order.find({ completed: false });
   res.send(activeOrders);
@@ -40,6 +45,27 @@ router.post('/', async (req, res) => {
     completed: req.body.completed,
   });
   order = await order.save();
+
+  res.send(order);
+});
+
+router.put('/:id', async (req, res) => {
+  const { error } = validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  const order = await Order.findByIdAndUpdate(
+    req.params.id,
+    {
+      dueDate: req.body.dueDate,
+      dueTime: req.body.dueTime,
+      packs: req.body.packs,
+      bulks: req.body.bulks,
+    },
+    { new: true }
+  );
+
+  if (!order)
+    return res.status(404).send('The order with the given ID was not found.');
 
   res.send(order);
 });
