@@ -51,10 +51,10 @@ const Order = mongoose.model(
 
 function validateOrder(order) {
   const schema = Joi.object({
-    productId: Joi.string().min(3).max(20).required(),
+    productId: Joi.string().min(3).max(20),
     dueDate: Joi.string().min(0).max(50).allow(null),
     dueTime: Joi.string().min(0).max(50).allow(null),
-    petNumber: Joi.string().min(5).max(20).required(),
+    petNumber: Joi.string().min(5).max(20),
     packs: Joi.number().min(0).max(5000).required(),
     bulks: Joi.number().min(0).max(5000).required(),
     cut: Joi.boolean(),
