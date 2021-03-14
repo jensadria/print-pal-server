@@ -60,6 +60,9 @@ router.put('/:id', async (req, res) => {
       dueTime: req.body.dueTime,
       packs: req.body.packs,
       bulks: req.body.bulks,
+      cut: req.body.cut,
+      packed: req.body.packed,
+      completed: req.body.completed,
     },
     { new: true }
   );
