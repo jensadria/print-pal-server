@@ -81,7 +81,7 @@ router.delete('/:id', async (req, res) => {
       .status(404)
       .send('The customer with the given ID was not found.');
 
-  res.send(customer);
+  res.send(order);
 });
 
 module.exports = router;
