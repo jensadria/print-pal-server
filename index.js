@@ -11,6 +11,9 @@ dotenv.config({ path: './config/config.env' });
 const app = express();
 const mongoose = require('mongoose');
 
+app.use(cors());
+app.use(express.json());
+
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
@@ -20,8 +23,6 @@ mongoose
   .then(() => console.log('Connected to MongoDB...'))
   .catch((err) => console.error('Could not connect to MongoDB...'));
 
-app.use(cors());
-app.use(express.json());
 app.use('/api/products', products);
 app.use('/api/orders', orders);
 
