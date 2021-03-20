@@ -65,5 +65,20 @@ function validateOrder(order) {
   return schema.validate(order);
 }
 
+function validatePatchOrder(order) {
+  const schema = Joi.object({
+    dueDate: Joi.string().min(0).max(50).allow(null),
+    dueTime: Joi.string().min(0).max(50).allow(null),
+    packs: Joi.number().min(0).max(5000).required(),
+    bulks: Joi.number().min(0).max(5000).required(),
+    cut: Joi.boolean(),
+    packed: Joi.boolean(),
+    completed: Joi.boolean(),
+  });
+
+  return schema.validate(order);
+}
+
 exports.Order = Order;
 exports.validate = validateOrder;
+exports.validatePatch = validatePatchOrder;
