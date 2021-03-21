@@ -73,6 +73,69 @@ router.patch('/:id', async (req, res) => {
   res.send(order);
 });
 
+// CUT. PACKED AND COMPLETED ROUTERS
+router.patch('/cut/:id', async (req, res) => {
+  let order = await Order.findById(
+    req.params.id,
+    function (err, order) {
+      order.cut = !order.cut;
+      order.save();
+    },
+    { new: true }
+  );
+
+  order = await order.save();
+
+  if (!order)
+    return res.status(404).send('The order with the given ID was not found.');
+
+  res.send(order);
+});
+
+router.patch('/packed/:id', async (req, res) => {
+  let order = await Order.findById(
+    req.params.id,
+    function (err, order) {
+      order.packed = !order.packed;
+      order.save();
+    },
+    { new: true }
+  );
+
+  order = await order.save();
+
+  if (!order)
+    return res.status(404).send('The order with the given ID was not found.');
+
+  res.send(order);
+});
+
+router.patch('/completed/:id', async (req, res) => {
+  let order = await Order.findById(
+    req.params.id,
+    function (err, order) {
+      if (!order.completed) {
+        order.cut;
+        order.packed;
+        order.completed;
+      }
+      if (order.completed) {
+        !order.completed;
+      }
+      order.save();
+    },
+    { new: true }
+  );
+
+  order = await order.save();
+
+  if (!order)
+    return res.status(404).send('The order with the given ID was not found.');
+
+  res.send(order);
+});
+
+// DELETE ROUTER
 router.delete('/:id', async (req, res) => {
   const order = await Order.findByIdAndRemove(req.params.id);
 
